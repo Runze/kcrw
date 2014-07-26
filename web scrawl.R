@@ -21,7 +21,7 @@ for (i in 1:length(date)) {
   yy = substr(d, 1, 4)
   mm = substr(d, 6, 7)
   dd = substr(d, 9, 10)
-  date_str = paste(mm, '%2F', dd, '%2F', yy, sep = '')
+  date_str = paste0(mm, '%2F', dd, '%2F', yy)
   
   cat('now processing', as.character(d), '\n')
   
@@ -30,7 +30,7 @@ for (i in 1:length(date)) {
       start_str = ''
     }
     else {
-      start_str = paste('start=', s, sep = '')
+      start_str = paste0('start=', s)
     }
     link = paste0(part1, start_str, part2, date_str, part3)
     url = getURL(link, followlocation =  T)
