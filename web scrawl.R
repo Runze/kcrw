@@ -5,13 +5,13 @@ library(lubridate)
 setwd('/Users/Runze/Documents/Github/kcrw')
 
 #define dates to loop over
-start = as.Date("2013-01-01")
-end = as.Date("2014-06-17")
-date = seq(start, end, by = "days")
+start = as.Date('2013-01-01')
+end = as.Date('2014-06-17')
+date = seq(start, end, by = 'days')
 
-part1 = "http://newmedia.kcrw.com/tracklists/search.php?"
-part2 = "&search_type=0&date_from="
-part3 = "&host=&date_to=&artist=&channel=Simulcast&label="
+part1 = 'http://newmedia.kcrw.com/tracklists/search.php?'
+part2 = '&search_type=0&date_from='
+part3 = '&host=&date_to=&artist=&channel=Simulcast&label='
 
 #crawl daily playlists
 playlists = list()
@@ -21,21 +21,21 @@ for (i in 1:length(date)) {
   yy = substr(d, 1, 4)
   mm = substr(d, 6, 7)
   dd = substr(d, 9, 10)
-  date_str = paste(mm, "%2F", dd, "%2F", yy, sep = "")
+  date_str = paste(mm, '%2F', dd, '%2F', yy, sep = '')
   
-  cat("now processing", as.character(d), "\n")
+  cat('now processing', as.character(d), '\n')
   
   for (s in seq(0, 100, 50)) {
     if (s == 0) {
-      start_str = ""
+      start_str = ''
     }
     else {
-      start_str = paste("start=", s, sep = "")
+      start_str = paste('start=', s, sep = '')
     }
-    link = paste(part1, start_str, part2, date_str, part3, sep = "")
+    link = paste0(part1, start_str, part2, date_str, part3)
     url = getURL(link, followlocation =  T)
     
-    na_check = str_locate(url, "Playlist information is not available for the selected criteria")
+    na_check = str_locate(url, 'Playlist information is not available for the selected criteria')
     if (!is.na(na_check[1])) {
       break
     }
